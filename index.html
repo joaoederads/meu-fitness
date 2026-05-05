@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -183,6 +182,7 @@ tr:hover td{background:rgba(232,255,71,.025);}
 .badge-braco{background:rgba(71,255,180,.15);color:#47ffb4;}
 .badge-cardio{background:rgba(255,200,71,.15);color:#ffc847;}
 .badge-abs{background:rgba(255,71,150,.15);color:#ff4796;}
+.badge-corrida{background:rgba(71,255,130,.15);color:#47ff82;}
 
 /* ── PROGRESS ── */
 .prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:7px;}
@@ -247,6 +247,53 @@ tr:hover td{background:rgba(232,255,71,.025);}
 .um-email{font-size:11px;color:var(--muted);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .um-divider{height:1px;background:var(--border);margin-bottom:12px;}
 
+/* ── AI COACH ── */
+.coach-chat{display:flex;flex-direction:column;gap:12px;max-height:420px;overflow-y:auto;padding-right:4px;margin-bottom:16px;}
+.chat-bubble{max-width:80%;padding:12px 16px;border-radius:14px;font-size:13px;line-height:1.6;animation:fadeIn .2s ease;}
+.chat-bubble.ai{background:var(--card2);border:1px solid var(--border);border-radius:14px 14px 14px 2px;align-self:flex-start;}
+.chat-bubble.user{background:rgba(232,255,71,.12);border:1px solid rgba(232,255,71,.25);border-radius:14px 14px 2px 14px;align-self:flex-end;color:var(--accent);}
+.chat-bubble.ai strong{color:var(--accent);}
+.coach-input-row{display:flex;gap:10px;}
+.coach-input-row input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 14px;color:var(--text);font-family:var(--font-b);font-size:13px;outline:none;transition:border-color .2s;}
+.coach-input-row input:focus{border-color:var(--accent);}
+.coach-typing{display:flex;gap:4px;align-items:center;padding:8px 0;}
+.coach-typing span{width:7px;height:7px;background:var(--muted);border-radius:50%;animation:bounce .9s infinite;}
+.coach-typing span:nth-child(2){animation-delay:.15s;}
+.coach-typing span:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* ── SENHA MODAL ── */
+#senha-modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:600;align-items:center;justify-content:center;}
+#senha-modal-ov.open{display:flex;}
+.senha-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;width:380px;max-width:92vw;text-align:center;animation:mIn .2s ease;}
+.senha-icon{font-size:48px;margin-bottom:12px;}
+.senha-title{font-family:var(--font-d);font-size:32px;color:var(--accent);margin-bottom:6px;letter-spacing:2px;}
+.senha-sub{font-size:12px;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+.senha-input-wrap{position:relative;margin-bottom:16px;}
+.senha-input-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 44px 12px 16px;color:var(--text);font-family:var(--font-b);font-size:16px;outline:none;text-align:center;letter-spacing:4px;transition:border-color .2s;}
+.senha-input-wrap input:focus{border-color:var(--accent);}
+.senha-input-wrap input.error{border-color:var(--accent3);animation:shake .3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.senha-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;}
+.senha-error{font-size:11px;color:var(--accent3);margin-bottom:12px;min-height:16px;}
+.senha-hint{font-size:10px;color:var(--muted);margin-top:12px;}
+.result-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;}
+.result-block h4{font-family:var(--font-d);font-size:18px;color:var(--accent);margin-bottom:10px;letter-spacing:1px;}
+.result-block textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:var(--font-b);font-size:12px;line-height:1.7;resize:vertical;outline:none;min-height:120px;}
+.result-block textarea:focus{border-color:var(--accent);}
+.plan-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.plan-tab{padding:6px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font-b);font-size:12px;cursor:pointer;transition:all .2s;}
+.plan-tab.active{background:rgba(232,255,71,.1);border-color:var(--accent);color:var(--accent);}
+.corrida-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:20px;}
+.corrida-day{border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center;}
+.corrida-day .cd-name{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.corrida-day .cd-type{font-size:11px;font-weight:600;margin-top:4px;}
+.corrida-day .cd-dist{font-size:10px;color:var(--muted);margin-top:2px;}
+.corrida-day.run{background:rgba(71,255,130,.05);border-color:rgba(71,255,130,.3);}
+.corrida-day.run .cd-type{color:#47ff82;}
+.corrida-day.rest-day{opacity:.4;}
+.corrida-phase{display:inline-block;padding:2px 10px;border-radius:10px;font-size:10px;font-weight:600;background:rgba(71,200,255,.15);color:var(--accent2);margin-bottom:12px;}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#07070f;padding:10px 18px;border-radius:9px;font-weight:600;font-size:12px;z-index:999;transform:translateY(70px);opacity:0;transition:all .3s;pointer-events:none;}
 .toast.show{transform:translateY(0);opacity:1;}
@@ -294,6 +341,8 @@ tr:hover td{background:rgba(232,255,71,.025);}
   <button class="nav-btn" onclick="showSec('medidas',this)">📏<span class="nav-tip">Medidas</span></button>
   <button class="nav-btn" onclick="showSec('peso',this)">⚖️<span class="nav-tip">Peso</span></button>
   <button class="nav-btn" onclick="showSec('alimentar',this)">🥗<span class="nav-tip">Alimentar</span></button>
+  <button class="nav-btn" onclick="showSec('corrida',this)">🏃<span class="nav-tip">Corrida</span></button>
+  <button class="nav-btn" onclick="showSec('coach',this)">🤖<span class="nav-tip">IA Coach</span></button>
   <div class="nav-spacer"></div>
   <div class="nav-avatar" id="nav-avatar" onclick="toggleUserMenu()">
     <span id="nav-avatar-initials">?</span>
@@ -430,6 +479,117 @@ tr:hover td{background:rgba(232,255,71,.025);}
     <div id="refs-list"><div style="text-align:center;color:var(--muted);padding:44px">Nenhuma refeição cadastrada</div></div>
   </div>
 
+  <!-- CORRIDA -->
+  <div id="sec-corrida" class="section">
+    <div class="page-header">
+      <div><div class="page-title">COR<span>RIDA</span></div><div class="page-sub">Programa para iniciantes — do zero aos 5km</div></div>
+    </div>
+
+    <div class="g3" style="margin-bottom:24px">
+      <div class="chip"><div class="chip-val" id="run-semana">1</div><div class="chip-lbl">Semana Atual</div></div>
+      <div class="chip"><div class="chip-val" id="run-total">0</div><div class="chip-lbl">Treinos Feitos</div></div>
+      <div class="chip"><div class="chip-val" id="run-dist" style="color:#47ff82">0</div><div class="chip-lbl">km Acumulado</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="sec-title">Seu Programa — 8 Semanas até 5km</div>
+      <div class="plan-tabs" id="run-phase-tabs"></div>
+      <div id="run-week-display"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="sec-title">Registrar Treino de Corrida</div>
+      <div class="g3">
+        <div class="fg"><label>Data</label><input type="date" id="run-data"></div>
+        <div class="fg"><label>Distância (km)</label><input type="number" id="run-km" placeholder="ex: 2.5" step="0.1"></div>
+        <div class="fg"><label>Tempo (min)</label><input type="number" id="run-tempo" placeholder="ex: 25"></div>
+      </div>
+      <div class="g2">
+        <div class="fg"><label>Tipo</label>
+          <select id="run-tipo">
+            <option value="caminhada">Caminhada</option>
+            <option value="corrida-leve">Corrida Leve</option>
+            <option value="intervalado">Intervalado (correr/caminhar)</option>
+            <option value="continuo">Contínuo</option>
+          </select>
+        </div>
+        <div class="fg"><label>Como foi?</label>
+          <select id="run-feeling">
+            <option value="fácil">😄 Fácil</option>
+            <option value="ok">😊 Ok</option>
+            <option value="difícil">😤 Difícil</option>
+            <option value="exausto">😵 Muito difícil</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-p" onclick="salvarCorrida()">+ Registrar</button>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">Histórico de Corridas</div>
+      <table>
+        <thead><tr><th>Data</th><th>Tipo</th><th>Distância</th><th>Tempo</th><th>Pace</th><th>Como foi</th><th></th></tr></thead>
+        <tbody id="corrida-tbody"><tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">Nenhum treino registrado ainda</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- IA COACH -->
+  <div id="sec-coach" class="section">
+    <div class="page-header">
+      <div><div class="page-title">IA <span>COACH</span></div><div class="page-sub">Treino e dieta personalizados por biotipo</div></div>
+      <button class="btn btn-g" onclick="resetCoach()">↺ Recomeçar</button>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="height:fit-content">
+        <div class="sec-title">Chat com a IA</div>
+        <div class="coach-chat" id="coach-chat"></div>
+        <div class="coach-input-row">
+          <input id="coach-inp" type="text" placeholder="Digite sua resposta..." onkeydown="if(event.key==='Enter')sendCoach()">
+          <button class="btn btn-p" onclick="sendCoach()">→</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="sec-title">Plano Gerado pela IA</div>
+          <div id="coach-plan-empty" style="text-align:center;color:var(--muted);padding:28px;font-size:13px">
+            Converse com a IA para gerar seu plano personalizado
+          </div>
+          <div id="coach-plan-content" style="display:none">
+            <div class="plan-tabs">
+              <button class="plan-tab active" onclick="switchPlanTab('treino',this)">🏋️ Treino</button>
+              <button class="plan-tab" onclick="switchPlanTab('dieta',this)">🥗 Dieta</button>
+              <button class="plan-tab" onclick="switchPlanTab('corrida-plan',this)">🏃 Corrida</button>
+            </div>
+            <div id="plan-treino" class="result-block">
+              <h4>PLANO DE TREINO</h4>
+              <textarea id="plan-treino-txt" placeholder="Aguardando geração..."></textarea>
+            </div>
+            <div id="plan-dieta" class="result-block" style="display:none">
+              <h4>PLANO ALIMENTAR</h4>
+              <textarea id="plan-dieta-txt" placeholder="Aguardando geração..."></textarea>
+            </div>
+            <div id="plan-corrida-plan" class="result-block" style="display:none">
+              <h4>PLANO DE CORRIDA</h4>
+              <textarea id="plan-corrida-txt" placeholder="Aguardando geração..."></textarea>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:12px">
+              <button class="btn btn-p" style="flex:1" onclick="salvarPlanoIA()">💾 Salvar Plano</button>
+              <button class="btn btn-g" onclick="regenerateCoach()">↺ Regenerar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="coach-profile-card" style="display:none">
+          <div class="sec-title">Perfil Identificado</div>
+          <div id="coach-profile-display"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- MODALS -->
@@ -438,7 +598,7 @@ tr:hover td{background:rgba(232,255,71,.025);}
   <div class="fg"><label>Nome</label><input id="t-nome" placeholder="ex: Supino Reto"></div>
   <div class="g2">
     <div class="fg"><label>Grupo Muscular</label>
-      <select id="t-grupo"><option value="peito">Peito</option><option value="costas">Costas</option><option value="pernas">Pernas</option><option value="ombro">Ombro</option><option value="braco">Bíceps/Tríceps</option><option value="abs">Abdômen</option><option value="cardio">Cardio</option></select>
+      <select id="t-grupo"><option value="peito">Peito</option><option value="costas">Costas</option><option value="pernas">Pernas</option><option value="ombro">Ombro</option><option value="braco">Bíceps/Tríceps</option><option value="abs">Abdômen</option><option value="cardio">Cardio</option><option value="corrida">Corrida</option></select>
     </div>
     <div class="fg"><label>Dia</label>
       <select id="t-dia"><option value="Seg">Segunda</option><option value="Ter">Terça</option><option value="Qua">Quarta</option><option value="Qui">Quinta</option><option value="Sex">Sexta</option><option value="Sab">Sábado</option><option value="Dom">Domingo</option></select>
@@ -501,6 +661,23 @@ tr:hover td{background:rgba(232,255,71,.025);}
     <button class="btn btn-p" onclick="salvarRef()">Salvar</button>
   </div>
 </div></div>
+
+<!-- SENHA IA COACH -->
+<div id="senha-modal-ov">
+  <div class="senha-box">
+    <div class="senha-icon">🔐</div>
+    <div class="senha-title">IA COACH</div>
+    <div class="senha-sub">Esta funcionalidade é protegida.<br>Digite a senha para gerar seu plano com IA.</div>
+    <div class="senha-input-wrap">
+      <input type="password" id="senha-inp" placeholder="••••••••" maxlength="32" onkeydown="if(event.key==='Enter')verificarSenha()">
+      <button class="senha-eye" onclick="toggleSenhaVis()">👁</button>
+    </div>
+    <div class="senha-error" id="senha-error"></div>
+    <button class="btn btn-p" style="width:100%" onclick="verificarSenha()">Entrar</button>
+    <button class="btn btn-g" style="width:100%;margin-top:8px" onclick="fecharSenhaModal()">Cancelar</button>
+    <div class="senha-hint">Solicite a senha ao administrador do site</div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -586,7 +763,7 @@ document.addEventListener('auth-change', async e => {
     }, 400);
   }, 1000);
 
-  renderDash(); renderTreinos(); renderMedidas(); renderPeso(); renderAlimentar();
+  renderDash(); renderTreinos(); renderMedidas(); renderPeso(); renderAlimentar(); renderCorrida(); renderCoach();
 });
 
 // ══════════════════════════════════════════
@@ -595,7 +772,7 @@ document.addEventListener('auth-change', async e => {
 const userPath   = () => `users/${currentUid}`;
 const colPath    = col => `users/${currentUid}/${col}`;
 
-let cache = { profile:{name:'',streak:0,meta:null}, treinos:[], medidas:[], pesos:[], refeicoes:[] };
+let cache = { profile:{name:'',streak:0,meta:null}, treinos:[], medidas:[], pesos:[], refeicoes:[], corridas:[] };
 
 async function loadAll() {
   const { doc, getDoc, collection, getDocs } = window._fns;
@@ -604,7 +781,7 @@ async function loadAll() {
     const pSnap = await getDoc(doc(db, userPath()));
     if (pSnap.exists()) cache.profile = { ...cache.profile, ...pSnap.data() };
 
-    for (const col of ['treinos','medidas','pesos','refeicoes']) {
+    for (const col of ['treinos','medidas','pesos','refeicoes','corridas']) {
       const snap = await getDocs(collection(db, colPath(col)));
       cache[col] = snap.docs.map(d => ({ ...d.data(), _id: d.id }));
     }
@@ -641,7 +818,7 @@ async function delItem(col, id) {
 // ══════════════════════════════════════════
 // NAV
 // ══════════════════════════════════════════
-const renderMap = { dashboard:renderDash, treinos:renderTreinos, medidas:renderMedidas, peso:renderPeso, alimentar:renderAlimentar };
+const renderMap = { dashboard:renderDash, treinos:renderTreinos, medidas:renderMedidas, peso:renderPeso, alimentar:renderAlimentar, corrida:renderCorrida, coach:renderCoach };
 function showSec(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -682,7 +859,7 @@ $('name-edit-inp').addEventListener('keydown', e => { if (e.key === 'Enter') sav
 // ══════════════════════════════════════════
 const DKEYS   = ['Seg','Ter','Qua','Qui','Sex','Sab','Dom'];
 const DLABELS = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-const GICON   = {peito:'💪',costas:'🔙',pernas:'🦵',ombro:'🙌',braco:'💪',cardio:'🏃',abs:'⚡'};
+const GICON   = {peito:'💪',costas:'🔙',pernas:'🦵',ombro:'🙌',braco:'💪',cardio:'🏃',abs:'⚡',corrida:'🏃'};
 
 function renderDays(elId) {
   const el = $(elId);
@@ -868,7 +1045,429 @@ function renderAlimentar(){
       <span class="mpill" style="color:#c847ff">G: ${r.gord}g</span>
     </div>
   </div>`).join('');
+
+// ══════════════════════════════════════════
+// CORRIDA — Programa 8 semanas do zero aos 5km
+// ══════════════════════════════════════════
+const RUN_PROGRAM = [
+  { phase: 'Fase 1', weeks: [1,2], label: 'Semanas 1-2', desc: 'Caminhada + corrida leve', days: [
+    {d:'Seg',type:'Intervalado',detail:'1min correr / 2min caminhar × 8',km:2.5,run:true},
+    {d:'Ter',type:'Descanso',detail:'Recuperação ativa',km:0,run:false},
+    {d:'Qua',type:'Caminhada',detail:'30min caminhada moderada',km:3,run:false},
+    {d:'Qui',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+    {d:'Sex',type:'Intervalado',detail:'1min correr / 2min caminhar × 8',km:2.5,run:true},
+    {d:'Sáb',type:'Caminhada',detail:'40min caminhada + alongamento',km:4,run:false},
+    {d:'Dom',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+  ]},
+  { phase: 'Fase 2', weeks: [3,4], label: 'Semanas 3-4', desc: 'Aumentando o tempo de corrida', days: [
+    {d:'Seg',type:'Intervalado',detail:'2min correr / 1min caminhar × 7',km:3,run:true},
+    {d:'Ter',type:'Descanso',detail:'Recuperação ativa',km:0,run:false},
+    {d:'Qua',type:'Corrida Leve',detail:'15min corrida contínua leve',km:2.5,run:true},
+    {d:'Qui',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+    {d:'Sex',type:'Intervalado',detail:'2min correr / 1min caminhar × 7',km:3,run:true},
+    {d:'Sáb',type:'Corrida Leve',detail:'20min corrida leve + caminhada',km:3.5,run:true},
+    {d:'Dom',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+  ]},
+  { phase: 'Fase 3', weeks: [5,6], label: 'Semanas 5-6', desc: 'Corrida contínua', days: [
+    {d:'Seg',type:'Contínuo',detail:'20min corrida contínua',km:3,run:true},
+    {d:'Ter',type:'Descanso',detail:'Caminhada leve 20min',km:0,run:false},
+    {d:'Qua',type:'Contínuo',detail:'25min corrida contínua',km:3.5,run:true},
+    {d:'Qui',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+    {d:'Sex',type:'Contínuo',detail:'25min corrida contínua',km:3.5,run:true},
+    {d:'Sáb',type:'Long Run',detail:'30min corrida leve',km:4.5,run:true},
+    {d:'Dom',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+  ]},
+  { phase: 'Fase 4', weeks: [7,8], label: 'Semanas 7-8', desc: 'Chegando nos 5km!', days: [
+    {d:'Seg',type:'Contínuo',detail:'28min corrida contínua',km:4,run:true},
+    {d:'Ter',type:'Descanso',detail:'Caminhada + alongamento',km:0,run:false},
+    {d:'Qua',type:'Contínuo',detail:'30min corrida contínua',km:4.5,run:true},
+    {d:'Qui',type:'Descanso',detail:'Descanso completo',km:0,run:false},
+    {d:'Sex',type:'Contínuo',detail:'30min corrida contínua',km:4.5,run:true},
+    {d:'Sáb',type:'5km! 🎉',detail:'Corra 5km sem parar!',km:5,run:true},
+    {d:'Dom',type:'Descanso',detail:'Celebre! Você chegou lá 🎉',km:0,run:false},
+  ]},
+];
+
+async function salvarCorrida() {
+  const km = parseFloat($('run-km').value)||0;
+  const tempo = parseInt($('run-tempo').value)||0;
+  if (!km && !tempo) { toast('Informe distância ou tempo'); return; }
+  await addItem('corridas', {
+    data: $('run-data').value||today(),
+    km, tempo,
+    tipo: $('run-tipo').value,
+    feeling: $('run-feeling').value
+  });
+  $('run-km').value=''; $('run-tempo').value='';
+  toast('✅ Corrida registrada!'); renderCorrida();
 }
-</script>
-</body>
-</html>
+
+async function delCorrida(id) { await delItem('corridas',id); renderCorrida(); toast('Registro removido'); }
+
+function renderCorrida() {
+  const sorted = [...cache.corridas].sort((a,b)=>new Date(a.data)-new Date(b.data));
+  const total = sorted.reduce((s,r)=>s+(r.km||0),0);
+  $('run-total').textContent = sorted.length;
+  $('run-dist').textContent = total.toFixed(1);
+
+  // detect current week based on first run
+  let currentWeek = 1;
+  if (sorted.length) {
+    const first = new Date(sorted[0].data+'T12:00');
+    const now = new Date();
+    const diffWeeks = Math.floor((now - first) / (7*24*3600*1000));
+    currentWeek = Math.min(Math.max(1, diffWeeks+1), 8);
+  }
+  $('run-semana').textContent = currentWeek;
+
+  // Phase tabs
+  const tabs = $('run-phase-tabs');
+  tabs.innerHTML = RUN_PROGRAM.map((ph,i) => {
+    const active = ph.weeks.includes(currentWeek);
+    return `<button class="plan-tab ${active?'active':''}" onclick="showRunPhase(${i},this)">${ph.label}</button>`;
+  }).join('');
+
+  // Show current phase
+  const phaseIdx = RUN_PROGRAM.findIndex(p=>p.weeks.includes(currentWeek));
+  showRunPhaseDisplay(phaseIdx>=0?phaseIdx:0);
+
+  // Set today on date input
+  if (!$('run-data').value) $('run-data').value = today();
+
+  // Table
+  const tb = $('corrida-tbody');
+  if (!sorted.length) { tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">Nenhum treino registrado ainda</td></tr>'; return; }
+  const rev = [...sorted].reverse();
+  tb.innerHTML = rev.map(r => {
+    const pace = r.km && r.tempo ? `${Math.floor(r.tempo/r.km)}'${String(Math.round((r.tempo/r.km % 1)*60)).padStart(2,'0')}"` : '--';
+    const feelEmoji = {fácil:'😄',ok:'😊',difícil:'😤',exausto:'😵'}[r.feeling]||'';
+    return `<tr>
+      <td>${fmtDate(r.data)}</td>
+      <td><span class="badge badge-corrida">${r.tipo}</span></td>
+      <td>${r.km?r.km+' km':'--'}</td>
+      <td>${r.tempo?r.tempo+' min':'--'}</td>
+      <td style="color:var(--accent2)">${pace}</td>
+      <td>${feelEmoji} ${r.feeling||'--'}</td>
+      <td><button onclick="delCorrida('${r._id}')" style="background:none;border:none;color:var(--muted);cursor:pointer">🗑</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function showRunPhase(idx, btn) {
+  document.querySelectorAll('#run-phase-tabs .plan-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  showRunPhaseDisplay(idx);
+}
+
+function showRunPhaseDisplay(idx) {
+  const ph = RUN_PROGRAM[idx];
+  if (!ph) return;
+  $('run-week-display').innerHTML = `
+    <span class="corrida-phase">${ph.phase} · ${ph.desc||ph.label}</span>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:14px">${ph.desc}</p>
+    <div class="corrida-week">
+      ${ph.days.map(d=>`
+        <div class="corrida-day ${d.run?'run':'rest-day'}">
+          <div class="cd-name">${d.d}</div>
+          <div class="cd-type">${d.type}</div>
+          <div class="cd-dist">${d.km?d.km+'km':''}</div>
+        </div>`).join('')}
+    </div>
+    <div style="font-size:12px;color:var(--muted)">
+      ${ph.days.filter(d=>d.run).map(d=>`<div style="padding:4px 0;border-bottom:1px solid var(--border)"><strong style="color:#47ff82">${d.d}</strong> — ${d.detail}</div>`).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// SENHA IA COACH
+// ══════════════════════════════════════════
+// 🔑 ALTERE A SENHA ABAIXO:
+const IA_SENHA_HASH = 'e407baa93736a1607ce98ca1fd05bd5de23f774a37f61aba50df84425cb33571'; // senha padrão: "admin"
+
+async function hashSenha(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+let senhaVerificada = false;
+let senhaCallback = null;
+
+function abrirSenhaModal(callback) {
+  senhaCallback = callback;
+  $('senha-inp').value = '';
+  $('senha-error').textContent = '';
+  $('senha-inp').type = 'password';
+  $('senha-modal-ov').classList.add('open');
+  setTimeout(() => $('senha-inp').focus(), 100);
+}
+
+function fecharSenhaModal() {
+  $('senha-modal-ov').classList.remove('open');
+  senhaCallback = null;
+}
+
+function toggleSenhaVis() {
+  const inp = $('senha-inp');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+async function verificarSenha() {
+  const val = $('senha-inp').value;
+  if (!val) { $('senha-error').textContent = 'Digite a senha'; return; }
+  const hash = await hashSenha(val);
+  if (hash === IA_SENHA_HASH) {
+    senhaVerificada = true;
+    fecharSenhaModal();
+    toast('✅ Acesso liberado!');
+    if (senhaCallback) senhaCallback();
+  } else {
+    $('senha-inp').classList.add('error');
+    $('senha-error').textContent = 'Senha incorreta. Tente novamente.';
+    setTimeout(() => $('senha-inp').classList.remove('error'), 400);
+    $('senha-inp').value = '';
+    $('senha-inp').focus();
+  }
+}
+
+document.getElementById('senha-modal-ov').addEventListener('click', function(e) {
+  if (e.target === this) fecharSenhaModal();
+});
+
+
+let coachState = { step: 0, profile: {}, history: [], planGenerated: false };
+
+const COACH_QUESTIONS = [
+  { key: 'nome', q: 'Olá! Sou seu **IA Coach** 🤖\n\nVamos montar seu plano personalizado. Primeiro: **qual é o seu nome?**' },
+  { key: 'idade', q: 'Prazer, {nome}! 💪\n\n**Quantos anos você tem?**' },
+  { key: 'peso', q: 'Ótimo! **Qual é o seu peso atual** (em kg)?' },
+  { key: 'altura', q: 'E **qual é sua altura** (em cm)? Ex: 175' },
+  { key: 'biotipo', q: 'Agora vou identificar seu biotipo. Como você se descreve?\n\n**A)** Sou magro, difícil ganhar peso (Ectomorfo)\n**B)** Corpo atlético, ganho músculo facilmente (Mesomorfo)\n**C)** Tendência a acumular gordura, difícil perder peso (Endomorfo)' },
+  { key: 'objetivo', q: 'Entendido! Qual é o seu **principal objetivo?**\n\n**A)** Ganhar massa muscular\n**B)** Perder gordura / definição\n**C)** Saúde geral e condicionamento\n**D)** Começar a correr' },
+  { key: 'nivel', q: 'Qual é o seu **nível de experiência** com treinos?\n\n**A)** Iniciante (nunca treinou ou parou há muito tempo)\n**B)** Intermediário (treina há alguns meses)\n**C)** Avançado (treina há anos)' },
+  { key: 'dias', q: 'Quantos **dias por semana** você pode treinar?\n\n**A)** 3 dias\n**B)** 4 dias\n**C)** 5 dias\n**D)** 6 dias' },
+  { key: 'restricoes', q: 'Tem alguma **restrição alimentar ou física** que eu deva saber? (lesões, alergias, etc.)\n\nSe não tiver, pode digitar **"nenhuma"**.' },
+];
+
+function renderCoach() {
+  if (coachState.history.length === 0) {
+    resetCoach();
+  }
+}
+
+function resetCoach() {
+  coachState = { step: 0, profile: {}, history: [], planGenerated: false };
+  $('coach-chat').innerHTML = '';
+  $('coach-plan-empty').style.display = 'block';
+  $('coach-plan-content').style.display = 'none';
+  $('coach-profile-card').style.display = 'none';
+  $('coach-inp').value = '';
+  askCoach(COACH_QUESTIONS[0].q);
+}
+
+function addBubble(text, type) {
+  const div = document.createElement('div');
+  div.className = `chat-bubble ${type}`;
+  div.innerHTML = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  $('coach-chat').appendChild(div);
+  $('coach-chat').scrollTop = $('coach-chat').scrollHeight;
+  coachState.history.push({type, text});
+}
+
+function askCoach(q) {
+  const name = coachState.profile.nome || '';
+  addBubble(q.replace('{nome}', name), 'ai');
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'chat-bubble ai';
+  div.id = 'typing-indicator';
+  div.innerHTML = '<div class="coach-typing"><span></span><span></span><span></span></div>';
+  $('coach-chat').appendChild(div);
+  $('coach-chat').scrollTop = $('coach-chat').scrollHeight;
+}
+
+function removeTyping() {
+  const t = $('typing-indicator');
+  if (t) t.remove();
+}
+
+async function sendCoach() {
+  const inp = $('coach-inp');
+  const val = inp.value.trim();
+  if (!val) return;
+  addBubble(val, 'user');
+  inp.value = '';
+
+  const q = COACH_QUESTIONS[coachState.step];
+  if (q) {
+    coachState.profile[q.key] = val;
+    coachState.step++;
+  }
+
+  if (coachState.step < COACH_QUESTIONS.length) {
+    setTimeout(() => askCoach(COACH_QUESTIONS[coachState.step].q), 400);
+  } else if (!coachState.planGenerated) {
+    coachState.planGenerated = true;
+    addBubble('Perfeito! Tenho tudo que preciso 🎯\n\nPara gerar seu plano personalizado, precisamos verificar o acesso à IA...', 'ai');
+    if (senhaVerificada) {
+      showTyping();
+      await generatePlan();
+    } else {
+      abrirSenhaModal(async () => {
+        showTyping();
+        addBubble('Acesso confirmado! Gerando seu plano agora... ⚡', 'ai');
+        await generatePlan();
+      });
+    }
+  }
+}
+
+async function generatePlan() {
+  const p = coachState.profile;
+  const biotipo = parseBiotipo(p.biotipo);
+  const objetivo = parseObjetivo(p.objetivo);
+  const nivel = parseNivel(p.nivel);
+  const dias = parseDias(p.dias);
+
+  showTyping();
+
+  const prompt = `Você é um personal trainer e nutricionista brasileiro experiente. 
+Crie um plano COMPLETO e DETALHADO para este usuário:
+
+Nome: ${p.nome}
+Idade: ${p.idade} anos
+Peso: ${p.peso}kg | Altura: ${p.altura}cm
+Biotipo: ${biotipo}
+Objetivo: ${objetivo}
+Nível: ${nivel}
+Dias disponíveis: ${dias} dias/semana
+Restrições: ${p.restricoes}
+
+Responda SOMENTE em JSON válido neste formato exato:
+{
+  "perfil_resumo": "resumo em 2 linhas do perfil",
+  "biotipo_explicacao": "explicação do biotipo em 2 linhas",
+  "treino": "plano de treino detalhado com divisão semanal, exercícios, séries e reps",
+  "dieta": "plano alimentar com 5-6 refeições, alimentos recomendados e calorias aproximadas",
+  "corrida": "plano de corrida para iniciantes adaptado ao biotipo e objetivo",
+  "dicas": "3 dicas específicas para este biotipo e objetivo"
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    removeTyping();
+
+    let text = data.content?.[0]?.text || '';
+    text = text.replace(/```json|```/g,'').trim();
+    let plan;
+    try { plan = JSON.parse(text); } catch(e) { plan = null; }
+
+    if (plan) {
+      displayPlan(plan, p.nome, biotipo, objetivo);
+    } else {
+      addBubble('Seu plano foi gerado! Veja ao lado. 💪', 'ai');
+      $('plan-treino-txt').value = text;
+      $('coach-plan-empty').style.display = 'none';
+      $('coach-plan-content').style.display = 'block';
+    }
+  } catch(e) {
+    removeTyping();
+    addBubble('Ocorreu um erro ao gerar o plano. Tente novamente clicando em Regenerar.', 'ai');
+    console.error(e);
+  }
+}
+
+function displayPlan(plan, nome, biotipo, objetivo) {
+  addBubble(`Plano pronto, ${nome}! 🎉\n\n**${plan.biotipo_explicacao}**\n\n${plan.dicas}`, 'ai');
+
+  $('plan-treino-txt').value = plan.treino || '';
+  $('plan-dieta-txt').value = plan.dieta || '';
+  $('plan-corrida-txt').value = plan.corrida || '';
+
+  $('coach-plan-empty').style.display = 'none';
+  $('coach-plan-content').style.display = 'block';
+
+  $('coach-profile-card').style.display = 'block';
+  $('coach-profile-display').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+      <div><span style="color:var(--muted)">Biotipo</span><br><strong style="color:var(--accent)">${biotipo}</strong></div>
+      <div><span style="color:var(--muted)">Objetivo</span><br><strong style="color:var(--accent2)">${objetivo}</strong></div>
+      <div><span style="color:var(--muted)">Nível</span><br><strong>${parseNivel(coachState.profile.nivel)}</strong></div>
+      <div><span style="color:var(--muted)">Dias/semana</span><br><strong>${parseDias(coachState.profile.dias)}x</strong></div>
+    </div>
+    ${plan.perfil_resumo ? `<div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6">${plan.perfil_resumo}</div>` : ''}`;
+
+  // Save profile to firebase
+  cache.profile.coachProfile = coachState.profile;
+  cache.profile.coachPlan = plan;
+  saveProf();
+}
+
+function switchPlanTab(id, btn) {
+  document.querySelectorAll('#coach-plan-content .plan-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['plan-treino','plan-dieta','plan-corrida-plan'].forEach(el => $(el).style.display='none');
+  $('plan-'+id).style.display = 'block';
+}
+
+async function salvarPlanoIA() {
+  const treino = $('plan-treino-txt').value;
+  const dieta = $('plan-dieta-txt').value;
+  cache.profile.planoIA = { treino, dieta, data: today() };
+  await saveProf();
+  toast('✅ Plano salvo no seu perfil!');
+}
+
+async function regenerateCoach() {
+  if (!coachState.planGenerated) { toast('Conclua o chat primeiro'); return; }
+  const doRegen = async () => {
+    coachState.planGenerated = false;
+    showTyping();
+    addBubble('Regenerando seu plano... 🔄', 'ai');
+    await generatePlan();
+  };
+  if (senhaVerificada) { await doRegen(); }
+  else { abrirSenhaModal(doRegen); }
+}
+
+// Parse helpers
+function parseBiotipo(v='') {
+  v = v.toLowerCase();
+  if (v.includes('a') || v.includes('ecto')) return 'Ectomorfo';
+  if (v.includes('b') || v.includes('meso')) return 'Mesomorfo';
+  if (v.includes('c') || v.includes('endo')) return 'Endomorfo';
+  return v;
+}
+function parseObjetivo(v='') {
+  v = v.toLowerCase();
+  if (v.includes('a') || v.includes('mass') || v.includes('musc')) return 'Ganho de Massa';
+  if (v.includes('b') || v.includes('gord') || v.includes('defin')) return 'Perda de Gordura';
+  if (v.includes('c') || v.includes('saúde') || v.includes('saude') || v.includes('cond')) return 'Saúde Geral';
+  if (v.includes('d') || v.includes('corr')) return 'Corrida';
+  return v;
+}
+function parseNivel(v='') {
+  v = v.toLowerCase();
+  if (v.includes('a') || v.includes('inic')) return 'Iniciante';
+  if (v.includes('b') || v.includes('inter')) return 'Intermediário';
+  if (v.includes('c') || v.includes('avan')) return 'Avançado';
+  return v;
+}
+function parseDias(v='') {
+  if (v.includes('a') || v==='3') return '3';
+  if (v.includes('b') || v==='4') return '4';
+  if (v.includes('c') || v==='5') return '5';
+  if (v.includes('d') || v==='6') return '6';
+  return v;
+}
+
