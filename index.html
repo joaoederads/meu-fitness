@@ -34,7 +34,11 @@
 
   onAuthStateChanged(auth, user => {
     window._currentUser = user || null;
-    document.dispatchEvent(new CustomEvent('auth-change', { detail: user }));
+    if (typeof window._onAuthChange === 'function') {
+      window._onAuthChange(user);
+    } else {
+      window._pendingAuthUser = user;
+    }
   });
 </script>
 
@@ -729,8 +733,7 @@ document.addEventListener('click', e => {
     $('user-menu').classList.remove('open');
 });
 
-document.addEventListener('auth-change', async e => {
-  const user = e.detail;
+window._onAuthChange = async function(user) {
   if (!user) {
     $('login-screen').style.display = 'flex';
     $('loading-screen').style.display = 'none';
@@ -767,7 +770,12 @@ document.addEventListener('auth-change', async e => {
   }, 1000);
 
   renderDash(); renderTreinos(); renderMedidas(); renderPeso(); renderAlimentar(); renderCorrida(); renderCoach();
-});
+};
+
+// Dispara imediatamente se o Firebase já notificou antes deste listener ser registrado
+if (window._pendingAuthUser !== undefined) {
+  window._onAuthChange(window._pendingAuthUser);
+}
 
 // ══════════════════════════════════════════
 // FIRESTORE — paths per user
