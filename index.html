@@ -34,11 +34,7 @@
 
   onAuthStateChanged(auth, user => {
     window._currentUser = user || null;
-    if (typeof window._onAuthChange === 'function') {
-      window._onAuthChange(user);
-    } else {
-      window._pendingAuthUser = user;
-    }
+    document.dispatchEvent(new CustomEvent('auth-change', { detail: user }));
   });
 </script>
 
@@ -315,7 +311,6 @@ tr:hover td{background:rgba(232,255,71,.025);}
   .page-title{font-size:38px;}
 }
 </style>
-
 </head>
 <body>
 
@@ -669,7 +664,7 @@ tr:hover td{background:rgba(232,255,71,.025);}
 </div></div>
 
 <!-- SENHA IA COACH -->
-<div id="senha-modal-ov">
+<div id="senha-modal-ov" class="modal-ov">
   <div class="senha-box">
     <div class="senha-icon">🔐</div>
     <div class="senha-title">IA COACH</div>
@@ -686,7 +681,6 @@ tr:hover td{background:rgba(232,255,71,.025);}
 </div>
 
 <div class="toast" id="toast"></div>
-
 
 <script>
 // ══════════════════════════════════════════
@@ -733,7 +727,8 @@ document.addEventListener('click', e => {
     $('user-menu').classList.remove('open');
 });
 
-window._onAuthChange = async function(user) {
+document.addEventListener('auth-change', async e => {
+  const user = e.detail;
   if (!user) {
     $('login-screen').style.display = 'flex';
     $('loading-screen').style.display = 'none';
@@ -770,12 +765,7 @@ window._onAuthChange = async function(user) {
   }, 1000);
 
   renderDash(); renderTreinos(); renderMedidas(); renderPeso(); renderAlimentar(); renderCorrida(); renderCoach();
-};
-
-// Dispara imediatamente se o Firebase já notificou antes deste listener ser registrado
-if (window._pendingAuthUser !== undefined) {
-  window._onAuthChange(window._pendingAuthUser);
-}
+});
 
 // ══════════════════════════════════════════
 // FIRESTORE — paths per user
@@ -1056,6 +1046,7 @@ function renderAlimentar(){
       <span class="mpill" style="color:#c847ff">G: ${r.gord}g</span>
     </div>
   </div>`).join('');
+}
 
 // ══════════════════════════════════════════
 // CORRIDA — Programa 8 semanas do zero aos 5km
@@ -1481,8 +1472,6 @@ function parseDias(v='') {
   if (v.includes('d') || v==='6') return '6';
   return v;
 }
-
-
 </script>
 </body>
 </html>
