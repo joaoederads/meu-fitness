@@ -1333,7 +1333,10 @@ async function generatePlan() {
 
   showTyping();
 
-  const prompt = `Você é um personal trainer e nutricionista brasileiro experiente. 
+  // 🔑 COLE SUA CHAVE DO GEMINI AQUI (gratuita em aistudio.google.com)
+  const GEMINI_KEY = 'AIzaSyCXbbkSbZdEfy7CN19CKM2wLBcKqLvk19U';
+
+  const prompt = `Você é um personal trainer e nutricionista brasileiro experiente.
 Crie um plano COMPLETO e DETALHADO para este usuário:
 
 Nome: ${p.nome}
@@ -1345,7 +1348,7 @@ Nível: ${nivel}
 Dias disponíveis: ${dias} dias/semana
 Restrições: ${p.restricoes}
 
-Responda SOMENTE em JSON válido neste formato exato:
+Responda SOMENTE em JSON válido neste formato exato, sem texto antes ou depois:
 {
   "perfil_resumo": "resumo em 2 linhas do perfil",
   "biotipo_explicacao": "explicação do biotipo em 2 linhas",
@@ -1355,36 +1358,58 @@ Responda SOMENTE em JSON válido neste formato exato:
   "dicas": "3 dicas específicas para este biotipo e objetivo"
 }`;
 
+  if (GEMINI_KEY === 'COLE_SUA_CHAVE_AQUI') {
+    removeTyping();
+    addBubble('⚠️ Chave do Gemini não configurada ainda!\n\nAbra o index.html e substitua **COLE_SUA_CHAVE_AQUI** pela sua chave gratuita de **aistudio.google.com**', 'ai');
+    return;
+  }
+
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 2048
+          }
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'Erro HTTP ' + res.status);
+    }
+
     const data = await res.json();
     removeTyping();
 
-    let text = data.content?.[0]?.text || '';
-    text = text.replace(/```json|```/g,'').trim();
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    text = text.replace(/```json/g,'').replace(/```/g,'').trim();
+
     let plan;
     try { plan = JSON.parse(text); } catch(e) { plan = null; }
 
     if (plan) {
       displayPlan(plan, p.nome, biotipo, objetivo);
     } else {
-      addBubble('Seu plano foi gerado! Veja ao lado. 💪', 'ai');
+      addBubble('Plano gerado! Veja ao lado 💪', 'ai');
       $('plan-treino-txt').value = text;
       $('coach-plan-empty').style.display = 'none';
       $('coach-plan-content').style.display = 'block';
     }
   } catch(e) {
     removeTyping();
-    addBubble('Ocorreu um erro ao gerar o plano. Tente novamente clicando em Regenerar.', 'ai');
-    console.error(e);
+    console.error('Gemini error:', e);
+    if (e.message.includes('API_KEY_INVALID') || e.message.includes('400')) {
+      addBubble('❌ Chave do Gemini inválida. Verifique a chave em aistudio.google.com/apikey', 'ai');
+    } else {
+      addBubble('Erro ao gerar o plano: ' + e.message + '. Clique em Regenerar para tentar novamente.', 'ai');
+    }
   }
 }
 
