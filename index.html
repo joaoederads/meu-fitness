@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1312,11 +1313,9 @@ async function sendCoach() {
     coachState.planGenerated = true;
     addBubble('Perfeito! Tenho tudo que preciso 🎯\n\nPara gerar seu plano personalizado, precisamos verificar o acesso à IA...', 'ai');
     if (senhaVerificada) {
-      showTyping();
       await generatePlan();
     } else {
       abrirSenhaModal(async () => {
-        showTyping();
         addBubble('Acesso confirmado! Gerando seu plano agora... ⚡', 'ai');
         await generatePlan();
       });
@@ -1330,8 +1329,6 @@ async function generatePlan() {
   const objetivo = parseObjetivo(p.objetivo);
   const nivel = parseNivel(p.nivel);
   const dias = parseDias(p.dias);
-
-  showTyping();
 
   // 🔑 COLE SUA CHAVE DO GEMINI AQUI (gratuita em aistudio.google.com)
   const GEMINI_KEY = 'AIzaSyCXbbkSbZdEfy7CN19CKM2wLBcKqLvk19U';
@@ -1359,10 +1356,11 @@ Responda SOMENTE em JSON válido neste formato exato, sem texto antes ou depois:
 }`;
 
   if (GEMINI_KEY === 'COLE_SUA_CHAVE_AQUI') {
-    removeTyping();
     addBubble('⚠️ Chave do Gemini não configurada ainda!\n\nAbra o index.html e substitua **COLE_SUA_CHAVE_AQUI** pela sua chave gratuita de **aistudio.google.com**', 'ai');
     return;
   }
+
+  showTyping();
 
   try {
     const res = await fetch(
@@ -1387,18 +1385,27 @@ Responda SOMENTE em JSON válido neste formato exato, sem texto antes ou depois:
 
     const data = await res.json();
     removeTyping();
+    console.log('Gemini response:', JSON.stringify(data).substring(0, 500));
 
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    console.log('Raw text:', text.substring(0, 200));
     text = text.replace(/```json/g,'').replace(/```/g,'').trim();
 
+    // Try to extract JSON even if there's extra text around it
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) text = jsonMatch[0];
+
     let plan;
-    try { plan = JSON.parse(text); } catch(e) { plan = null; }
+    try { plan = JSON.parse(text); } catch(e) {
+      console.error('JSON parse error:', e.message, 'text:', text.substring(0,200));
+      plan = null;
+    }
 
     if (plan) {
       displayPlan(plan, p.nome, biotipo, objetivo);
     } else {
       addBubble('Plano gerado! Veja ao lado 💪', 'ai');
-      $('plan-treino-txt').value = text;
+      $('plan-treino-txt').value = text || 'Não foi possível gerar o plano. Tente regenerar.';
       $('coach-plan-empty').style.display = 'none';
       $('coach-plan-content').style.display = 'block';
     }
